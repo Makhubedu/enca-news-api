@@ -129,3 +129,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 CORS_ORIGIN_ALLOW_ALL = True
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_HOST = os.environ.get('DJANGO_STATIC_HOST', '')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
