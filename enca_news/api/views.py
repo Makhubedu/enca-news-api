@@ -9,7 +9,6 @@ from .data import GetData
 
 @api_view(['GET'])
 def api(request):
-    an = GetData('south-africa')
     list_of_urls ={
         "api/" : "GET list of all the APIs Routes. ",
         "api/:type_of_news": "GET Returns the news with the specified category e.g Bussines",
