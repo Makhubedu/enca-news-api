@@ -12,3 +12,6 @@ class MainNews(models.Model):
     lead_content = models.CharField(max_length=30000)
     image_caption = models.CharField(max_length=30000, default="")
     img = models.CharField(max_length=4000)
+class ReadNews(models.Model):
+    news  = models.CharField(max_length=300000)
+    date = models.DateField( auto_now=True)

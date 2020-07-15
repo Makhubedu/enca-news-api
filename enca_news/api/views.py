@@ -1,9 +1,10 @@
 from rest_framework.decorators import api_view
 from rest_framework.request import Request
 from rest_framework.response import Response
-from .models import News , MainNews
-from api.serializers import NewsSerializer, MainNewsSerializer
+from .models import News , MainNews , ReadNews
+from api.serializers import NewsSerializer, MainNewsSerializer, ReadNewsSerializer
 from .data import GetData
+from .main_news import MainNews
 
 # Create your views here.
 
@@ -11,13 +12,13 @@ from .data import GetData
 def api(request):
     list_of_urls ={
         "api/" : "GET list of all the APIs Routes. ",
-        "api/:type_of_news": "GET Returns the news with the specified category e.g Bussines",
-        "Derrick(NOT A ROUTE)" : "Please be awre that the data is scrapped, the API might be slow at times."
+        "api/body/category/<str:category>": "GET Returns the news of a specified category e.g Bussines",
+        "api/header/category/<str:category>": "GET Returns the main news of a specified category e.g Bussines",
+        "api/read": "POST Send URL with name news and GET all the news about that URL",
+        "Derrick(NOT A ROUTE)" : "Please be aware that the data is scrapped, the API might be slow at times."
     }
     
-    return Response(
-        an.getContent()['image_caption']
-    )
+    return Response(list_of_urls)
 
 @api_view(['GET'])
 def main_news(request, category):
@@ -78,6 +79,24 @@ def body_news(request, category):
     serialized = NewsSerializer(news,context={'request': request},many=True)
 
     return Response(serialized.data)
+
+@api_view(["POST"])
+def read_news(request):
+    ReadNews.objects.all().delete()
+    data_read = request.data["read"]
+    newsRead = MainNews(url=data_read)
+    getText = newsRead.getMainNews()
+    try:
+        save_news_data = ReadNews(news=getText)
+        save_news_data.save()
+    except:
+        return Response({"Error": "Couldn't save data to the database."})
+    obj = ReadNews.objects.all().order_by('id')
+    serialized = ReadNewsSerializer(obj ,context={'request': request},many=True)
+
+    return Response(serialized.data)
+
+
 
 
 

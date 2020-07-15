@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from rest_framework.serializers import HyperlinkedIdentityField
-from .models import News, MainNews
+from .models import News, MainNews, ReadNews
 
 # Serializers define the API representation.
 class NewsSerializer(serializers.HyperlinkedModelSerializer):
@@ -23,5 +23,12 @@ class MainNewsSerializer(serializers.HyperlinkedModelSerializer):
             'title',
             'img',
             'image_caption'
+        )
+class ReadNewsSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = ReadNews
+        fields = (
+            'news',
+            'date'
         )
 
