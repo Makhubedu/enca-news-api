@@ -23,7 +23,7 @@ SECRET_KEY = 'f-hl_)kpii^un_w2c8#kk_w8ckotmbfy=h)x2460uwld_qnc(d'
 # SECURITY WARNING: keep the secret key used in production secre
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
