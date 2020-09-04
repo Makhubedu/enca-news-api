@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from .models import News , MainNews , ReadNews
 from api.serializers import NewsSerializer, MainNewsSerializer, ReadNewsSerializer
 from .data import GetData
-from .main_news import MainNews
+from .main_news import BodyNews
 
 # Create your views here.
 
@@ -80,11 +80,11 @@ def body_news(request, category):
 
     return Response(serialized.data)
 
-@api_view(["POST"])
-def read_news(request):
+@api_view(["GET"])
+def read_news(request, path):
     ReadNews.objects.all().delete()
-    data_read = request.data["read"]
-    newsRead = MainNews(url=data_read)
+    data_read = "https://www.sabcnews.com/sabcnews/" + path
+    newsRead = BodyNews(url=data_read)
     getText = newsRead.getMainNews()
     try:
         save_news_data = ReadNews(news=getText)

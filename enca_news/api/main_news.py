@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 
-class MainNews:
+class BodyNews:
     def __init__(self, url):
         self.url = url
         self.html = requests.get(str(url)).text
